@@ -10,13 +10,13 @@ public class RandomSpawnScript : MonoBehaviour
 
     public Slider slider;
 
-
-    private float spawnRate = 2.5f;  //iki nesne dogma arasındaki süre
+    //TODO levelInt 'in oyun bittiğinde sıfırlanması lazım.
+    private float spawnRate = 10f;  //iki nesne dogma arasındaki süre
     private float speed = 0.1f;
     float nextSpawn = 0f;
     int whatToSpawnLeft, whatToSpawnRight;
 
-    float yMesafe = 2.0f;
+    float yMesafe = 2.0f;   // aynı anda gelenleri hizalamamak için
     float yMesafeLeft, yMesafeRight;
 
     private int levelInt = 1;
@@ -33,7 +33,7 @@ public class RandomSpawnScript : MonoBehaviour
     void Update()
     {
 
-        if (Time.time > nextSpawn)
+        if(!leftObj && !rightObj) //if (Time.time > nextSpawn)
         {
             createObjects();
         }
@@ -98,9 +98,9 @@ public class RandomSpawnScript : MonoBehaviour
                 break;
         }
 
-        Destroy(leftObj, spawnRate);
-        Destroy(rightObj, spawnRate);
-        nextSpawn = Time.time + spawnRate;
+        //Destroy(leftObj, spawnRate);
+        //Destroy(rightObj, spawnRate);
+        // = Time.time + spawnRate;
     }
 
 
@@ -140,6 +140,7 @@ public class RandomSpawnScript : MonoBehaviour
             slider.value = 0f;
             levelEndTime = Time.time;
             Debug.Log(levelInt + ".Bölüme geçtin Süren:" + levelEndTime);
+            if(levelInt % 2 == 0) speed=speed+0.01f;
         }
         if (slider.value < 1.0f)
         {
