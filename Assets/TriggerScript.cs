@@ -14,7 +14,7 @@ public class TriggerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        levelInt = int.Parse(level.GetComponent<Text>().text);
+        levelInt = 1;
     }
 
     // Update is called once per frame

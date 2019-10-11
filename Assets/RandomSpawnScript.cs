@@ -19,10 +19,15 @@ public class RandomSpawnScript : MonoBehaviour
     float yMesafe = 2.0f;
     float yMesafeLeft, yMesafeRight;
 
-    public GameObject level;
-    private int levelInt=1;
+    private int levelInt = 1;
+    private float levelEndTime = 0f;
+
+    public GameObject levelText;
+    Text txt;
+
     void Start()
     {
+        txt = levelText.GetComponent<Text>();
     }
 
     void Update()
@@ -126,24 +131,20 @@ public class RandomSpawnScript : MonoBehaviour
 
     }
 
-    void checkLevel()  //////PROBLEM VAR BURADA !!!!!!!!!!!!! SLIDER SIFIRLANMIYOR
-    { 
-        //int x=(int)(slider.value*10);
-        Debug.Log("AAA:" + slider.value);
-        if (slider.value >= 0.2f)
+    void checkLevel()
+    {
+        if (slider.value >= 1.0f)
         {
-            //Debug.Log(levelInt + ".Bölüm bitti" + slider.value);
-            Debug.Log("BBB:" + slider.value);
-            //levelInt = levelInt + 1;
+            levelInt = levelInt + 1;
+            txt.text = levelInt.ToString();
             slider.value = 0f;
-            //Time.timeScale = 0;
+            levelEndTime = Time.time;
+            Debug.Log(levelInt + ".Bölüme geçtin Süren:" + levelEndTime);
         }
-        if (slider.value < 0.2f)
+        if (slider.value < 1.0f)
         {
-            Debug.Log("CCC:" + slider.value +" time: "+  Time.time+" level: "+levelInt);
             //levelInt = int.Parse(level.GetComponent<Text>().text);
-            slider.value = Time.time / 10 * levelInt;
-            Debug.Log("DDD:" + slider.value);
+            slider.value = (Time.time - levelEndTime) / (4 * levelInt); //Yeni levelde slider value 0.saniyeyi hesaba katması için     
 
         }
         /* 
